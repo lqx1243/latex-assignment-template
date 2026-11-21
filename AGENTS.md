@@ -1,9 +1,15 @@
-# 模板维护指南
+# Maintaining the assignment template
 
-从仓库根目录打开 `main.tex`。编译、复制新作业与替换课程材料的步骤见 [README.md](README.md)。
+Build from the repository root with `latexmk main.tex`. The output is `build/main.pdf`. See the [README](README.md) for instructions on starting an assignment and adding course materials.
 
-- 维护公开示例时，用可辨识的字段、原创示意图和虚构文献。课程专有材料、真实信息和签名统一放在 Git 忽略的 `local-materials/`。检查公开版本时，从只含已跟踪文件的新目录编译一次。
-- 修改封面后，检查 A4、单人名单、多人签名后的日期，以及反馈框右下角的 Mark 小框。较长的题目会在空格处换行，需在成品中核对表格或下方内容是否发生重叠。
-- 修改评分表选择逻辑后，分别检查默认的红色示例水印和本地多页 PDF 的全部页面。修改引用配置后，分别用 APA 和 IEEE 编译，核对正文引文及两条书目的顺序。
-- 从具体作业移入改进时，只移入通用代码、示例或说明。在公开仓库中逐项检查改动并独立提交，发布前从当前提交导出干净副本编译。
-- 文件和目录使用 ASCII 小写字母、数字及连字符，路径的大小写须与源文件一致。`README.md`、`AGENTS.md`、`LICENSE` 和工具配置沿用惯例。保留隐藏配置，以便完整导出后仍可单独编译。
+## Language
+
+Use English for the main README, agent instructions, source comments, build messages, and text printed by the sample report. When a change affects a documented step, update the [Simplified Chinese](docs/readme-zh-cn.md) and [Spanish](docs/readme-es.md) guides as well. Keep each language's own name in the README language switcher. When answering a contributor, use their preferred language.
+
+## Template changes
+
+- Use clear placeholders, original example graphics, and fictional references in the public template. Keep course-specific materials, personal details, and signatures in the Git-ignored `local-materials/` directory.
+- After editing the cover, compile a single-student example and a group example. Check the A4 page size, the date below the last signature, and the mark box where it meets the right and bottom borders of the feedback frame. Check that a long title wraps without overlapping the next row.
+- After changing the rubric, check the red watermark on the example page and verify that a local multi-page rubric replaces it in full. After changing citations, compile with APA and IEEE and check the in-text citations and the order of the two references.
+- When bringing an improvement over from an assignment, review the diff and commit the reusable changes in this repository. Before a release, export the tracked files from the release commit and build the example in a clean directory.
+- Use lowercase ASCII letters, digits, and hyphens for new filenames and directories. Match case in all paths. Keep conventional names such as `README.md`, `AGENTS.md`, and `LICENSE`, and include the hidden build and editor settings when exporting the template.
