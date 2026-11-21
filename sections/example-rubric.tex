@@ -1,0 +1,47 @@
+% !TeX root = ../main.tex
+% This original sample is used when local-materials/rubric.pdf is absent.
+\clearpage
+\begingroup
+\thispagestyle{empty}
+\definecolor{rubricCrimson}{HTML}{A00018}
+\AddToShipoutPictureBG*{%
+  \AtPageCenter{\makebox(0,0){%
+    \rotatebox{54}{\resizebox{1.33\paperwidth}{!}{%
+      \sffamily\bfseries\color{rubricCrimson!65!white}EXAMPLE}}}}}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\vspace*{8mm}
+{\sffamily\bfseries\small\color{rubricCrimson}REPLACE BEFORE SUBMISSION\par}
+\vspace{4mm}
+{\fontsize{26}{31}\selectfont\bfseries Sample marking rubric\par}
+\vspace{4mm}
+These criteria and point values illustrate how a marking sheet can be laid out.
+Use the rubric supplied for your assignment when preparing the final report.\par
+
+\vspace{13mm}
+\noindent\begin{tblr}{
+  width=\linewidth,
+  colspec={X[1.15,l] X[1.6,l] Q[c,wd=1.55cm] Q[c,wd=1.75cm]},
+  column{1}={leftsep=0pt}, column{4}={rightsep=0pt},
+  rows={m,rowsep=6mm}, row{1,Z}={font=\bfseries,rowsep=3mm},
+  hline{1,Z}={0.8pt}, hline{2,3,4,5}={0.35pt},
+}
+  Criterion & Sample evidence & Possible & Awarded \\
+  Criterion A & Example outline & 4 & \\
+  Criterion B & Example explanation & 4 & \\
+  Criterion C & Example illustration & 2 & \\
+  Total & & 10 & \\
+\end{tblr}\par
+
+\vspace{16mm}
+{\bfseries Marker comments}\par
+\vspace{12mm}\hrule height 0.35pt
+\vspace{12mm}\hrule height 0.35pt
+\vspace{12mm}\hrule height 0.35pt
+
+\vfill
+{\small To replace this page, save the course PDF as
+\texttt{local-materials/rubric.pdf} and recompile.\par}
+\clearpage
+\endgroup

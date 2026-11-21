@@ -1,0 +1,131 @@
+% Build with latexmk from this directory. The PDF is written to build/main.pdf.
+\documentclass[a4paper,12pt]{article}
+
+% =========================
+% Layout and paragraph style
+% =========================
+\usepackage[left=3.18cm,right=3.18cm,top=2.54cm,bottom=2.54cm]{geometry}
+\usepackage{setspace}
+\setstretch{1.25} % Line spacing. Common choices: 1.2 / 1.25 / 1.5.
+
+\usepackage{parskip}        % Adds vertical space between paragraphs.
+\setlength{\parindent}{0em} % Set to non-zero if you prefer first-line indentation.
+
+% =========================
+% Font setup
+% =========================
+% Use XeLaTeX so English and Chinese fonts can be configured directly.
+\usepackage{fontspec}
+\usepackage{xeCJK}
+
+% Use the original report fonts when installed, with TeX Live alternatives.
+\IfFontExistsTF{Times New Roman}
+  {\setmainfont{Times New Roman}}
+  {\setmainfont{texgyretermes}[Extension=.otf,
+     UprightFont=*-regular, BoldFont=*-bold,
+     ItalicFont=*-italic, BoldItalicFont=*-bolditalic]}
+
+\ExplSyntaxOn
+\newcommand*{\ReportCJKFont}{\sys_if_platform_windows:TF {SimSun} {Songti~SC}}
+\ExplSyntaxOff
+\IfFontExistsTF{\ReportCJKFont}
+  {\setCJKmainfont{\ReportCJKFont}[Script=Default]}
+  {\setCJKmainfont{FandolSong-Regular.otf}[Script=Default,
+     BoldFont=FandolSong-Bold.otf, ItalicFont=FandolKai-Regular.otf]}
+
+% Reuse the configured CJK font in sans and monospaced labels.
+\renewcommand*{\CJKsfdefault}{\CJKrmdefault}
+\renewcommand*{\CJKttdefault}{\CJKrmdefault}
+
+% =========================
+% Common packages
+% =========================
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{eso-pic}
+\usepackage{etoolbox}
+\usepackage{tabularray}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{pdfpages}
+\usepackage[backend=biber,style=numeric,sorting=none]{biblatex}
+\addbibresource{references.bib}
+
+% Default folder for \includegraphics.
+\graphicspath{{figures/}}
+
+% Keep hyperlinks visually simple in academic documents.
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=black,
+  citecolor=black
+}
+
+\sloppy % Allow LaTeX to adjust spacing to prevent overfull lines.
+
+% Copy the example into local-materials/course-settings.tex to personalize it.
+\IfFileExists{local-materials/course-settings.tex}
+  {\input{local-materials/course-settings}}
+  {\input{course-settings-example}}
+
+% =========================
+% Header and footer
+% =========================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} % Clear all default header/footer fields first.
+
+\fancyhead[C]{\fontsize{12pt}{14pt}\selectfont \ReportInstitution}
+\fancyfoot[C]{\fontsize{12pt}{14pt}\selectfont \thepage}
+
+\renewcommand{\headrulewidth}{0pt} % Change to 0.4pt if you want a header rule.
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\headheight}{15pt}      % Prevents fancyhdr headheight warnings.
+
+% =========================
+% Table of contents depth
+% =========================
+\setcounter{tocdepth}{2} % 1=section, 2=subsection, 3=subsubsection
+
+\begin{document}
+
+\input{sections/cover-page}
+
+% Title block for the main document body.
+\begin{center}
+{\Large\bfseries \CoverAssessment}
+
+\vspace{0.4em}
+
+\ReportAuthors
+
+\vspace{0.2em}
+
+\today
+
+\end{center}
+
+% Abstract is maintained as a separate file for easier editing.
+\input{sections/abstract}
+
+% Generate the table of contents after the abstract.
+\tableofcontents
+\newpage
+
+% Main content sections.
+\input{sections/introduction}
+% \input{sections/results} % Uncomment when the file is ready to include.
+\input{sections/conclusion}
+
+% Biber supplies the bibliography; bibintoc adds its table-of-contents entry.
+\clearpage
+\printbibliography[heading=bibintoc,title={References}]
+
+% Remove this block in assignments that do not require a rubric.
+\IfFileExists{local-materials/rubric.pdf}
+  {\includepdf[pages=-]{local-materials/rubric.pdf}}
+  {\input{sections/example-rubric}}
+
+\end{document}

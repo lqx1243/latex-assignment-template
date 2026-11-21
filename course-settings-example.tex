@@ -1,0 +1,34 @@
+% Copy this file to local-materials/course-settings.tex for a real assignment.
+% The local copy replaces this example. Long text wraps at spaces in the table.
+\newcommand{\ReportInstitution}{EXAMPLE UNIVERSITY}
+\newcommand{\CoverCourseCode}{DEMO101}
+\newcommand{\CoverCourseName}{Example Course}
+\newcommand{\CoverLecturer}{Example Lecturer}
+\newcommand{\CoverSession}{Example Term}
+\newcommand{\CoverAssessment}{Example Assignment Title}
+\newcommand{\CoverDueDate}{DD / MM / YYYY}
+\newcommand{\ReportAuthors}{Example Student} % Title block in the report body.
+
+% Add one row per student. Remove unused rows.
+\newcommand{\CoverStudents}{%
+  \CoverStudent{ABC1234567}{Example Student}%
+}
+
+% Supply one signature per student, in the same order. The example draws a label.
+% In the local copy, replace the placeholder line with one or more image lines.
+% PNG, JPEG and PDF are supported. The optional height defaults to 1.7 cm.
+\newcommand{\CoverSignatures}{%
+  \CoverSignaturePlaceholder
+  % \CoverSignatureImage{local-materials/signatures/student-one.png}%
+  % \CoverSignatureImage[2cm]{local-materials/signatures/student-two.png}%
+}
+
+% The logo keeps its aspect ratio in the cover's square image slot.
+\newcommand{\CoverLogoFile}{local-materials/logo.pdf}
+% Supply the course's declaration as paragraphs in local-materials/declaration.tex.
+\newcommand{\CoverDeclarationTitle}{Course Declaration}
+\newcommand{\CoverDeclarationDate}{\today}
+
+% Leave these fields empty for the marker.
+\newcommand{\CoverFeedback}{}
+\newcommand{\CoverMark}{}

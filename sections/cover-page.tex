@@ -1,0 +1,131 @@
+% !TeX root = ../main.tex
+% Change course data in a local copy of course-settings-example.tex.
+\begingroup
+
+\newcommand{\CoverStudentRows}{}
+\newcommand{\CoverStudent}[2]{%
+  \appto\CoverStudentRows{& & {#1} & {#2} \\}}
+\CoverStudents
+\ifdefempty{\CoverStudentRows}{\CoverStudent{}{}}{}
+
+\newcommand{\CoverSignatureRows}{}
+\newcommand{\CoverSignatureImage}[2][1.7cm]{%
+  \appto\CoverSignatureRows{%
+    \hbox{\includegraphics[width=350bp,height=#1,keepaspectratio]{#2}}%
+    \vskip 5bp}}
+\newcommand{\CoverSignaturePlaceholder}{%
+  \appto\CoverSignatureRows{%
+    \hbox{\begin{picture}(128,48)
+      \linethickness{0.48bp}%
+      \put(0.24,0.24){\framebox(127.52,47.52){\normalfont\sffamily\small SIGNATURE}}%
+    \end{picture}}%
+    \vskip 5bp}}
+\CoverSignatures
+
+% PostScript points, measured from the upper left of the A4 page.
+\newcommand{\CoverPlace}[3]{\put(#1,-#2){#3}}
+\newcommand{\CoverPage}[1]{%
+  \thispagestyle{empty}%
+  \AddToShipoutPictureFG*{\AtPageUpperLeft{%
+    \setlength{\unitlength}{1bp}%
+    \renewcommand{\baselinestretch}{1}%
+    \normalfont\fontsize{12bp}{14bp}\selectfont
+    \CoverPlace{297.05}{47.16}{\makebox[0pt][c]{\ReportInstitution}}%
+    #1}}%
+  \null\clearpage}
+
+% Use a simple typographic placeholder until a local course logo is supplied.
+\newcommand{\CoverLogo}{%
+  \begin{picture}(108.75,107.95)
+    \IfFileExists{\CoverLogoFile}{%
+      \put(0,0){\makebox(108.75,107.95){%
+        \includegraphics[width=108.75bp,height=107.95bp,keepaspectratio]{\CoverLogoFile}}}%
+    }{%
+      \linethickness{0.48bp}%
+      \put(0.24,0.24){\framebox(108.27,107.47){\normalfont\sffamily\large LOGO}}%
+    }%
+  \end{picture}}
+
+\newcommand{\CoverFeedbackBox}{%
+  \begin{picture}(415.52,161.55)
+    \linethickness{0.48bp}%
+    \put(0.24,0.24){\framebox(415.04,161.07){}}%
+    \put(5.40,148.23){Feedback from Lecturer:}%
+    \put(5.40,129.75){\parbox[t]{326bp}{\raggedright\CoverFeedback}}%
+    % The outer frame supplies the right and bottom of the 72 bp mark box.
+    \put(343.52,0){\line(0,1){72}}%
+    \put(343.28,72){\line(1,0){72.24}}%
+    \put(350.45,56.07){Mark:}%
+    \put(350.45,36.90){\CoverMark}%
+  \end{picture}}
+
+\newcommand{\CoverForm}{%
+  \vbox{\offinterlineskip
+    \hbox{%
+      \begin{tblr}[expand=\CoverStudentRows]{
+        colspec={Q[l,wd=124.70bp] Q[c,wd=6.00bp] Q[l,wd=83.30bp] Q[l,wd=165.64bp]},
+        colsep=5.40bp, rowsep=0pt,
+        column{1}={rightsep=0.40bp}, column{2}={leftsep=3.64bp,rightsep=3.64bp},
+        column{3}={leftsep=5.18bp,rightsep=5.62bp},
+        rows={m,ht=18.00bp}, row{1-6}={ht=21.62bp,abovesep=1.85bp,belowsep=-1.85bp},
+        row{8-Y}={abovesep=1.90bp,belowsep=-1.90bp}, row{Z}={ht=18.43bp},
+        % Allow the merged value cells to wrap inside the original ruled area.
+        cell{1-7}{3}={c=2}{l,wd=260bp}, row{8}={halign=c}, cell{8}{1}={l},
+        hline{2-Y}={3-4}{0.48bp},
+        vline{3,4}={8-Y}{0.48bp}, vline{5}={8-Z}{0.48bp},
+      }
+        Course Code         & : & \CoverCourseCode & \\
+        Course Name         & : & \CoverCourseName & \\
+        Lecturer            & : & \CoverLecturer   & \\
+        Academic Session    & : & \CoverSession    & \\
+        Assessment Title    & : & \CoverAssessment & \\
+        Submission Due Date & : & \CoverDueDate    & \\
+                            &   &                  & \\
+        \raisebox{1.08bp}{Prepared by} & : & Student ID & Student Name \\
+        \CoverStudentRows
+                            &   &                  &
+      \end{tblr}}%
+    \hbox{\CoverFeedbackBox}}}
+
+% Stack signature images in student order. Keep a blank line before the date.
+\newcommand{\CoverSignatureBlock}{%
+  \vtop{\offinterlineskip
+    \hbox{\strut Signature:}%
+    \ifdefempty{\CoverSignatureRows}
+      {\vskip 1.7cm}
+      {\CoverSignatureRows\unskip}%
+    \vskip 20.7bp
+    \hbox{\strut Date:}%
+    \hbox{\strut\CoverDeclarationDate}}}
+
+\newcommand{\CoverDeclarationFile}{local-materials/declaration.tex}
+\newsavebox{\CoverDeclarationText}
+\newlength{\CoverSignatureOffset}
+\newcommand{\CoverDeclaration}{%
+  \CoverPlace{297.66}{85.08}{\makebox[0pt][c]{%
+    \fontsize{14.04bp}{16bp}\selectfont\bfseries
+    \IfFileExists{\CoverDeclarationFile}{\CoverDeclarationTitle}{Sample Declaration}}}%
+  \sbox{\CoverDeclarationText}{\parbox[t]{415.30bp}{%
+    \fontsize{12bp}{20.7bp}\selectfont
+    \setlength{\parindent}{0pt}%
+    \setlength{\parskip}{20.7bp}%
+    \hyphenpenalty=10000
+    \frenchspacing
+    \IfFileExists{\CoverDeclarationFile}{\input{\CoverDeclarationFile}}{%
+      Replace this paragraph with the declaration supplied for your assignment.
+
+      Check the wording against the current course instructions before signing.}}}%
+  \CoverPlace{90.02}{148.70}{\usebox{\CoverDeclarationText}}%
+  % Keep the standard signature position for short declarations. Longer text
+  % pushes the block down so signatures do not overlap the final paragraph.
+  \setlength{\CoverSignatureOffset}{\dimexpr148.70bp+\dp\CoverDeclarationText+32bp\relax}%
+  \ifdim\CoverSignatureOffset<397.13bp \setlength{\CoverSignatureOffset}{397.13bp}\fi
+  \CoverPlace{90.02}{\CoverSignatureOffset}{%
+    \fontsize{12bp}{20.7bp}\selectfont\CoverSignatureBlock}}
+
+\CoverPage{%
+  \CoverPlace{242.90}{179.95}{\CoverLogo}%
+  \CoverPlace{90.02}{193.80}{\fontsize{14.04bp}{16bp}\selectfont
+    \raisebox{-\height}{\CoverForm}}}
+\CoverPage{\CoverDeclaration}
+\endgroup
