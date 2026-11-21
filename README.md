@@ -1,6 +1,8 @@
 # LaTeX 作业报告模板
 
-一个可独立编译的非官方 A4 报告模板。前两页是可编辑的封面和声明，后面有正文、图表、参考文献与评分表示例。下载后可直接预览，学校名称、标志、签名和评分内容都有明显的占位标记。正式要求及材料以当期课程发布的版本为准。
+An A4 LaTeX template for coursework reports with an editable cover, group signatures, APA 7 or IEEE citations, and a replaceable marking rubric.
+
+前两页是可编辑的封面和声明，后面有正文、图表、参考文献与评分表示例。下载后可直接编译预览，学校名称、标志、签名和评分内容都有明显的占位标记。正式要求及材料以当期课程发布的版本为准。
 
 ## 先看效果
 
@@ -35,9 +37,20 @@
 | 声明 | 将当期要求的声明正文放入 `local-materials/declaration.tex`，文件只需包含段落，用空行分段。标题由本地配置的 `\CoverDeclarationTitle` 控制。照录原文时，把普通文字里的 `&`、`%`、`_`、`#` 等 LaTeX 特殊字符分别写成 `\&`、`\%`、`\_`、`\#`。 |
 | 签名和日期 | 把签名图片放入 `local-materials/signatures/`，在本地配置的 `\CoverSignatures` 中删除示例签名，按名单顺序每人添加一行 `\CoverSignatureImage{local-materials/signatures/student-one.png}`。支持 PNG、JPEG 和 PDF。默认高度 1.7 cm，保持比例；也可写成 `\CoverSignatureImage[2cm]{...}`。日期显示在最后一个签名下面，默认取编译当天，或在 `\CoverDeclarationDate` 中写入实际签署日期。 |
 | 评分表 | 将当期评分表保存为 `local-materials/rubric.pdf`。模板会按顺序附上它的所有页面，原创示例页及红色 **EXAMPLE** 水印随之消失。课程无需评分表时，删除 [main.tex](main.tex) 末尾已注明用途的评分表选择代码。 |
-| 正文、图表和文献 | 编辑 `sections/` 中的正文，替换 [示例插图](figures/example-figure.png) 和 [参数表](tables/parameters.tex)。[references.bib](references.bib) 中的书和文章都是演示格式的虚构条目。换成实际查阅的来源，并同步更新正文的 `\cite{...}` 引用键。 |
+| 正文、图表和文献 | 编辑 `sections/` 中的正文，替换 [示例插图](figures/example-figure.png) 和 [参数表](tables/parameters.tex)。[references.bib](references.bib) 中的书和文章都是演示格式的虚构条目。换成实际查阅的来源，并同步更新正文的引用键。 |
 
 首次添加、改名或移除本地材料后，运行 `latexmk -g main.tex` 强制重新检查文件。打开最终 PDF，核对画幅、学生名单、每个签名和日期、声明全文及评分表页数。封面长标题会在空格处折行；正式声明篇幅或组员人数较多时，也请查看第二页末行和签名区的位置。[封面排版源码](sections/cover-page.tex)
+
+## 按课程选择引用格式
+
+默认使用 **APA 第 7 版**排版正文引文和文末书目，封面与正文仍沿用本模板的 A4 版式。课程指定 IEEE 时，在 [main.tex](main.tex) 的 `biblatex` 设置中把 `style=apa` 改成 `style=ieee`。两种格式共用同一份 `.bib` 和同一组引用键。
+
+| 同一处正文命令 | APA 7 | IEEE |
+| --- | --- | --- |
+| `\parencite{example-article}` | (Example Article Author, 2000) | [1] |
+| 文末排序 | 按作者字母顺序 | 按正文首次引用顺序 |
+
+先看作业说明或目标期刊的投稿指南，再选样式。更改后运行 `latexmk main.tex`，检查正文引用与文末书目是否对应。若安装的 TeX 发行版较精简，APA 使用 `biblatex-apa`、`csquotes` 和 Biber；IEEE 使用 `biblatex-ieee`。[APA 样式包](https://ctan.org/pkg/biblatex-apa) · [IEEE 样式包](https://ctan.org/pkg/biblatex-ieee)
 
 ## 图片、PDF 和编译输出
 
